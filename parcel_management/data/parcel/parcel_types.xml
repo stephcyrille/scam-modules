@@ -1,0 +1,64 @@
+<odoo>
+    <data noupdate="1">
+        <record id="parcel_type_box" model="parcel.type">
+            <field name="code">BOX</field>
+            <field name="name">Box</field>
+            <field name="description">Standard cardboard box for general parcels.</field>
+            <field name="active">True</field>
+        </record>
+        <record id="parcel_type_envelope" model="parcel.type">
+            <field name="code">ENV</field>
+            <field name="name">Envelope</field>
+            <field name="description">Flat envelope for documents and small items.</field>
+            <field name="active">True</field>
+        </record>
+        <record id="parcel_type_tube" model="parcel.type">
+            <field name="code">TUBE</field>
+            <field name="name">Tube</field>
+            <field name="description">Cylindrical tube for posters or rolled goods.</field>
+            <field name="active">True</field>
+        </record>
+        <record id="parcel_type_pallet" model="parcel.type">
+            <field name="code">PALLET</field>
+            <field name="name">Pallet</field>
+            <field name="description">Large pallet for bulk or heavy shipments.</field>
+            <field name="active">True</field>
+        </record>
+        <record id="parcel_type_crate" model="parcel.type">
+            <field name="code">CRATE</field>
+            <field name="name">Crate</field>
+            <field name="description">Wooden crate for fragile or valuable items.</field>
+            <field name="active">True</field>
+        </record>
+        <record id="parcel_type_bag" model="parcel.type">
+            <field name="code">BAG</field>
+            <field name="name">Bag</field>
+            <field name="description">Flexible bag for soft or irregularly shaped items.</field>
+            <field name="active">True</field>
+        </record>
+        <record id="parcel_type_case" model="parcel.type">
+            <field name="code">CASE</field>
+            <field name="name">Case</field>
+            <field name="description">Protective case for electronics or sensitive goods.</field>
+            <field name="active">True</field>
+        </record>
+        <record id="parcel_type_barrel" model="parcel.type">
+            <field name="code">BARREL</field>
+            <field name="name">Barrel</field>
+            <field name="description">Sealed barrel for liquids or bulk materials.</field>
+            <field name="active">True</field>
+        </record>
+        <record id="parcel_type_cooler" model="parcel.type">
+            <field name="code">COOLER</field>
+            <field name="name">Cooler</field>
+            <field name="description">Insulated cooler for perishable goods.</field>
+            <field name="active">True</field>
+        </record>
+        <record id="parcel_type_container" model="parcel.type">
+            <field name="code">CONTAINER</field>
+            <field name="name">Container</field>
+            <field name="description">Large shipping container for international freight.</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>

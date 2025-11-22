@@ -1,0 +1,45 @@
+<odoo>
+  <data>
+
+    <record id="view_travel_form" model="ir.ui.view">
+      <field name="name">colis.travel.form</field>
+      <field name="model">colis.travel</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <group>
+                <field name="no" />
+              </group>
+              <group>
+                <field name="company_branch_id" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="travel_view_list" model="ir.ui.view">
+        <field name="name">colis.travel.list</field>
+        <field name="model">colis.travel</field>
+        <field name="arch" type="xml">
+            <tree string="voyage vue liste" multi_edit="1" sample="1">
+              <field name="no" />
+              <field name="company_branch_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_travel">
+      <field name="name">Voyage</field>
+      <field name="res_model">colis.travel</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Partner menu item -->
+    <menuitem id="menu_travel" parent="menu_parameter" name="Voyages" sequence="6"
+              action="action_travel"/>
+
+  </data>
+</odoo>

@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+      <record id="colis.colis_sequence" model="ir.sequence">
+        <field name="name">Reférence colis</field>
+        <field name="code">colis.expedition</field>
+        <field name="active">TRUE</field>
+        <field name="prefix">SHP/%(y)s/%(month)s/%(day)s/</field>
+        <field name="number_increment">1</field>
+        <field name="number_next">1</field>
+        <field name="padding">3</field>
+        <field name="implementation">standard</field>
+      </record>
+
+      <record id="colis.colis_recption_sequence" model="ir.sequence">
+        <field name="name">Reférence reception colis</field>
+        <field name="code">colis.reception</field>
+        <field name="active">TRUE</field>
+        <field name="prefix">RCP/%(y)s/%(month)s/%(day)s/</field>
+        <field name="number_increment">1</field>
+        <field name="number_next">1</field>
+        <field name="padding">3</field>
+        <field name="implementation">standard</field>
+      </record>
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+
+    <record id="view_res_partner_template_form" model="ir.ui.view">
+      <field name="name">res.partner.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="mode">primary</field>
+      <field name="arch" type="xml">
+        <div name="button_box" position="replace">
+            <span/>
+        </div>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_show_partner">
+      <field name="name">Clients</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Partner menu item -->
+    <menuitem id="menu_partner" parent="shipping_manager_main" name="Liste des clients" sequence="2"
+              action="action_show_partner"/>
+
+  </data>
+</odoo>

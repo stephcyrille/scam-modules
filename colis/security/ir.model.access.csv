@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_colis_colis_type,colis.colis_type,model_colis_type,base.group_user,1,1,1,1
+access_colis_colis_expedition,colis.colis_expedition,model_colis_expedition,base.group_user,1,1,1,1
+access_colis_colis_travel,colis.colis_travel,model_colis_travel,base.group_user,1,1,1,1
+access_colis_colis_product_line,colis.colis_product_line,model_colis_product_line,base.group_user,1,1,1,1
+access_colis_colis_reception,colis.colis_reception,model_colis_reception,base.group_user,1,1,1,1
+access_colis_colis_sms,colis.colis_sms,model_colis_sms,base.group_user,1,1,1,1
+access_colis_colis_retrieve,colis.colis_retrieve,model_colis_retrieve,base.group_user,1,1,1,1
+
+access_colis_colis_city,colis.colis_city,model_colis_city,base.group_user,1,1,1,1

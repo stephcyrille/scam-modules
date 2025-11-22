@@ -1,0 +1,81 @@
+<odoo>
+  <data>
+
+    <record id="view_colis_retrieve_form" model="ir.ui.view">
+      <field name="name">colis.retrieve.form</field>
+      <field name="model">colis.retrieve</field>
+      <field name="arch" type="xml">
+        <form>
+            <header>
+              <field name="state" widget="statusbar" statusbar_visible="draft,confirm,terminate"/>
+            </header>
+
+            <sheet>
+            <div class="oe_title">
+              <span class="o_form_label">Reférence</span>
+              <h1 class="mt0">
+                  <field name="ref" placeholder="MOVE/01/01/2022-0001"/>
+              </h1>
+            </div>
+            <group>
+              <group>
+                <field name="receiver_id" />
+                <field name="reception_id" domain="[('receiver_id', '=', receiver_id)]"/>
+                <field name="place_id" />
+                <field name="travel_no_id" />
+              </group>
+              <group>
+                <field name="sender_id"/>
+                <field name="date" />
+              </group>
+            </group>
+
+            <notebook>
+              <page string="Élément du colis">
+                <field name="colis_products_ids" readonly="1">
+                  <tree editable="bottom">
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="weight" />
+                    <field name="volume" />
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="activity_ids" widget="mail_activity"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="colis_client_retrieve_view_list" model="ir.ui.view">
+        <field name="name">colis.retrieve.list</field>
+        <field name="model">colis.retrieve</field>
+        <field name="arch" type="xml">
+            <tree string="Reception de colis" multi_edit="1" sample="1">
+              <field name="ref" />
+              <field name="date" />
+              <field name="sender_id" />
+              <field name="receiver_id" />
+              <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_retrieve">
+      <field name="name">Retrait de colis</field>
+      <field name="res_model">colis.retrieve</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Partner menu item -->
+    <menuitem id="menu_retrieve" parent="menu_colis_all" name="Retrait de colis" sequence="5"
+              action="action_retrieve" />
+
+  </data>
+</odoo>

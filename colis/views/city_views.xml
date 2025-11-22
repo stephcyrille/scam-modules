@@ -1,0 +1,49 @@
+<odoo>
+  <data>
+
+    <record id="view_city_form" model="ir.ui.view">
+      <field name="name">colis.city.form</field>
+      <field name="model">colis.city</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name" />
+            </group>
+            <group>
+              <group>
+                <field name="country_id" />
+              </group>
+              <group>
+                <field name="state_id" domain="[('country_id', '=', country_id)]" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="city_view_list" model="ir.ui.view">
+        <field name="name">colis.city.list</field>
+        <field name="model">colis.city</field>
+        <field name="arch" type="xml">
+            <tree string="City vue liste" multi_edit="1" sample="1">
+              <field name="name" />
+              <field name="country_id" />
+              <field name="state_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_city">
+      <field name="name">Villes</field>
+      <field name="res_model">colis.city</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Partner menu item -->
+    <menuitem id="menu_city" parent="menu_parameter" name="Villes" sequence="4"
+              action="action_city"/>
+
+  </data>
+</odoo>

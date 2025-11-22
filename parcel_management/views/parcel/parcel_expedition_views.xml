@@ -1,0 +1,179 @@
+<odoo>
+
+  <!-- FORM VIEW COLIS -->
+  <record id="form_view_parcel_expedition" model="ir.ui.view">
+    <field name="name">parcel.expedition.form</field>
+    <field name="model">parcel.expedition</field>
+    <field name="arch" type="xml">
+      <form string="Parcel form">
+        <header>
+            <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent"/>
+        </header>
+
+        <sheet>
+            <!-- <div class="oe_button_box" name="button_box">
+                <button
+                class="oe_stat_button"
+                type="object"
+                attrs="{'invisible': [('invoice_count', '=', 0)]}"
+                name="action_view_invoice"
+                icon="fa-pencil-square-o"
+                >
+                <div class="o_field_widget o_stat_info">
+                    <span class="o_stat_text"> Invoices</span>
+                    <field name="invoice_count" invisible="1"/>
+                </div>
+                </button>
+            </div> -->
+          <div class="oe_title">
+            <span class="o_form_label">Reference</span>
+            <h1 class="mt0">
+                <field name="ref" placeholder="SHP/01/01/2022-0001"/>
+            </h1>
+          </div>
+
+          <group>
+            <group string="Sender">
+              <field
+                name="sender_id"
+                domain="[('id', '!=', receiver_id), ('customer_rank', '>', 0)]"
+                readonly="state in ('checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended')"
+              />
+              <field
+                name="from_place_id"
+                domain="[('id', '!=', to_place_id)]"
+                readonly="state in ('checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended')"
+              />
+            </group>
+
+            <group string="Recipient">
+              <field
+                name="receiver_id"
+                domain="[('id', '!=', sender_id), ('customer_rank', '>', 0)]"
+                readonly="state in ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']"
+              />
+              <field
+                name="to_place_id"
+                domain="[('id', '!=', from_place_id)]"
+                readonly="state in ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']"
+              />
+            </group>
+          </group>
+
+          <group>
+            <group string="Parcel Information">
+              <field
+                name="parcel_type_id"
+                readonly="state in ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']"
+              />
+              <field
+                name="departure_date"
+                readonly="state in ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']"
+              />
+              <field
+                name="estimated_arrival_date"
+                readonly="state in ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']"
+              />
+              <field name="date" />
+            </group>
+
+            <group string="Weight, Volume and Price">
+              <field name="weight" />
+              <field name="capacity" />
+              <field
+                name="price"
+                class="oe_inline"
+                widget='monetary'
+                options="{'currency_field': 'currency_id', 'field_digits': True}"
+                readonly="state in ['confirmed', 'sent', 'arrived', 'canceled', 'ended']"
+              />
+            </group>
+          </group>
+
+          <group>
+            <field name="operator_id" readonly="1" />
+            <field
+              name="description"
+            />
+          </group>
+
+          <notebook>
+            <page string="Parcel Products">
+              <field
+                name="parcel_product_ids"
+                readonly="state in ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']"
+              >
+                  <list editable="bottom" limit="20">
+                    <field name="product_id" domain="[('type', '!=', 'service'), ('sale_ok', '=', True)]" width="200"/>
+                    <field name="quantity" width="80"/>
+                    <field name="weight" width="100"/>
+                    <field name="volume" width="100"/>
+                  </list>
+              </field>
+            </page>
+
+            <page string="Company details and Location">
+              <group>
+                <group string="Company details">
+                  <field name="company_id" readonly="1"/>
+                  <field name="origin_branch_id" domain="[('parent_id', '!=', False), ('id', '!=', destination_branch_id)]"/>
+                  <field name="destination_branch_id" domain="[('parent_id', '!=', False), ('id', '!=', origin_branch_id)]"/>
+                </group>
+                <group string="Warehouse and Location">
+                  <field name="from_warehouse_id" domain="[('id', '!=', to_warehouse_id)]"/>
+                  <field name="to_warehouse_id" domain="[('id', '!=', from_warehouse_id)]"/>
+                  <field name="currency_id" invisible="1" />
+                </group>
+              </group>
+            </page>
+            <page string="Driver and Vehicle">
+              <group>
+                <group>
+                  <field name="driver_id" />
+                  <field name="plate_no" placeholder="LT XXX YY"/>
+                </group>
+                <!-- <group>
+                  <field name="travel_no" domain="[('company_branch_id', '=', company_branch_id)]"/>
+                </group> -->
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+        <chatter/>
+      </form>
+    </field>
+  </record>
+
+  <record id="list_view_parcel_expedition" model="ir.ui.view">
+      <field name="name">parcel.expedition.list</field>
+      <field name="model">parcel.expedition</field>
+      <field name="arch" type="xml">
+          <list string="Parcel Expedition List">
+            <field name="ref" />
+            <field name="sender_id" />
+            <field name="receiver_id" />
+            <field name="from_place_id" />
+            <field name="to_place_id" />
+            <field name="weight" />
+            <field name="price" />
+            <field name="state" />
+          </list>
+      </field>
+  </record>
+
+
+  <record id="action_parcel_expedition" model="ir.actions.act_window">
+    <field name="name">Parcel Expedition</field>
+    <field name="res_model">parcel.expedition</field>
+    <field name="view_mode">list,form</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Create your first parcel expedition
+        </p>
+        <p>
+            This menu allows you to create new parcels.
+        </p>
+    </field>
+  </record>
+
+</odoo>

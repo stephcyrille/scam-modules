@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_parcel_city_user,parcel.city.user,model_parcel_city,base.group_user,1,1,1,1
+access_parcel_expedition_user,parcel.expedition.user,model_parcel_expedition,base.group_user,1,1,1,1
+access_parcel_type_user,parcel.type.user,model_parcel_type,base.group_user,1,1,1,1
+access_parcel_product_line_user,parcel.product.line.user,model_parcel_product_line,base.group_user,1,1,1,1

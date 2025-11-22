@@ -1,0 +1,88 @@
+<odoo>
+ <data noupdate="1">
+    <!-- Regions of Cameroon -->
+    <record id="region_adamaoua" model="res.country.state">
+        <field name="name">Adamaoua</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="code">AD</field>
+    </record>
+    <record id="region_centre" model="res.country.state">
+        <field name="name">Centre</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="code">CE</field>
+    </record>
+    <record id="region_east" model="res.country.state">
+        <field name="name">East</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="code">E</field>
+    </record>
+    <record id="region_extreme_north" model="res.country.state">
+        <field name="name">Extreme North</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="code">EN</field>
+    </record>
+    <record id="region_littoral" model="res.country.state">
+        <field name="name">Littoral</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="code">LT</field>
+    </record>
+    <record id="region_north" model="res.country.state">
+        <field name="name">North</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="code">N</field>
+    </record>
+    <record id="region_northwest" model="res.country.state">
+        <field name="name">Northwest</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="code">NW</field>
+    </record>
+    <record id="region_south" model="res.country.state">
+        <field name="name">South</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="code">S</field>
+    </record>
+    <record id="region_southwest" model="res.country.state">
+        <field name="name">Southwest</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="code">SW</field>
+    </record>
+    <record id="region_west" model="res.country.state">
+        <field name="name">West</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="code">W</field>
+    </record>
+
+    <!-- Main Cities of Cameroon -->
+    <record id="city_yaounde" model="parcel.city">
+        <field name="name">Yaoundé</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="state_id" ref="region_centre"/>
+    </record>
+    <record id="city_douala" model="parcel.city">
+        <field name="name">Douala</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="state_id" ref="region_littoral"/>
+    </record>
+    <record id="city_garoua" model="parcel.city">
+        <field name="name">Garoua</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="state_id" ref="region_north"/>
+    </record>
+    <record id="city_bamenda" model="parcel.city">
+        <field name="name">Bamenda</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="state_id" ref="region_northwest"/>
+    </record>
+    <record id="city_bafoussam" model="parcel.city">
+        <field name="name">Bafoussam</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="state_id" ref="region_west"/>
+    </record>
+    <record id="city_buea" model="parcel.city">
+        <field name="name">Buea</field>
+        <field name="country_id" ref="base.cm"/>
+        <field name="state_id" ref="region_southwest"/>
+    </record>
+
+    </data>
+</odoo>

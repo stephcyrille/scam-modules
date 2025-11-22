@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+    <record id="colis_type_view_list" model="ir.ui.view">
+        <field name="name">colis.type.list</field>
+        <field name="model">colis.type</field>
+        <field name="arch" type="xml">
+            <tree string="Type de colis liste" editable="top">
+              <field name="name" />
+              <field name="code" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_colis_type">
+      <field name="name">Types de colis</field>
+      <field name="res_model">colis.type</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+    <!-- Partner menu item -->
+    <menuitem id="menu_type_colis" parent="menu_parameter" name="Types de colis" sequence="10"
+              action="action_colis_type"/>
+
+  </data>
+</odoo>

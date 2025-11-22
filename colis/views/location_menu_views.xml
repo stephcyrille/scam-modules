@@ -1,0 +1,7 @@
+<odoo>
+  <data>
+    <!-- Partner menu item -->
+    <menuitem id="menu_custom_location" parent="menu_parameter" name="Emplacements" sequence="9"
+              action="stock.action_location_form"/>
+  </data>
+</odoo>

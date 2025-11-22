@@ -1,0 +1,31 @@
+<odoo>
+  <data>
+    <record id="form_view_parcel_res_partner" model="ir.ui.view">
+      <field name="name">res.partner.form.parcel</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="priority">99</field>
+      <field name="arch" type="xml">
+        <field name="city" position="replace">
+          <field name="parcel_city_id" placeholder="City" class="o_address_city" required="1"/>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_parcel_show_partner">
+      <field name="name">Customer</field>
+      <field name="context">{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}</field>
+      <field name="domain">[('customer_rank', '&gt;', 0)]</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">list,form</field>
+      <field name="views" eval="[
+          (ref('base.view_partner_tree'), 'list'), 
+          (ref('form_view_parcel_res_partner'), 'form')
+      ]"/>
+    </record>
+
+    <!-- Partner menu item -->
+    <menuitem id="parcel_menu_customers" parent="parcel_management_main" name="Customers" sequence="3" action="action_parcel_show_partner"/>
+
+  </data>
+</odoo>

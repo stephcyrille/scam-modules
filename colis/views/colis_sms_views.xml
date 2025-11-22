@@ -1,0 +1,60 @@
+<odoo>
+
+  <!-- FORM VIEW SMS -->
+  <record id="sms_view_form" model="ir.ui.view">
+    <field name="name">colis.sms.form</field>
+    <field name="model">colis.sms</field>
+    <field name="arch" type="xml">
+      <form string="Sms form">
+        <sheet>
+          <group>
+            <group>
+              <field name="from_number"/>
+              <field name="date"/>
+            </group>
+            <group>
+              <field name="to_number"/>
+            </group>
+          </group>
+          <group>
+              <field name="message"/>
+          </group>
+
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="sms_view_list" model="ir.ui.view">
+      <field name="name">colis.sms.list</field>
+      <field name="model">colis.sms</field>
+      <field name="arch" type="xml">
+          <tree string="Sms vue liste" create="false" edit="false" sample="1">
+            <field name="to_number" />
+            <field name="from_number" />
+            <field name="date" />
+          </tree>
+      </field>
+  </record>
+
+
+  <record id="sms_action_window" model="ir.actions.act_window">
+    <field name="name">Short Messages Service</field>
+    <field name="res_model">colis.sms</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Aucun sms enregistré.
+        </p>
+        <p>
+            Ce menu vous permet de visualiser les sms.
+        </p>
+    </field>
+  </record>
+
+  <!-- Top menu item -->
+  <menuitem id="menu_analysis" parent="shipping_manager_main" name="Analyse" sequence="7"/>
+  <menuitem id="sms_menu" parent="menu_analysis" name="SMS Messages" sequence="1"
+            action="sms_action_window"/>
+
+</odoo>

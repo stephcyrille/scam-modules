@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+
+    <!-- Top menu item -->
+    <menuitem id="parcel_management_main" name="Parcel management" sequence="10" web_icon="parcel_management,static/description/icon.png" />
+      <menuitem id="parcel_menu_all" parent="parcel_management_main" name="Parcel Management" sequence="1"/>
+        <menuitem id="parcel_send_menu" parent="parcel_menu_all" name="Send a Parcel" sequence="1" action="action_parcel_expedition"/>
+
+    <menuitem id="parcel_menu_parameter" parent="parcel_management_main" name="Settings" sequence="8"/>
+      <menuitem id="menu_city" parent="parcel_menu_parameter" name="Cities" sequence="4" action="action_parcel_city"/>
+      <menuitem id="menu_type_parcel" parent="parcel_menu_parameter" name="Parcel Types" sequence="10" action="action_parcel_type"/>
+
+  </data>
+</odoo>

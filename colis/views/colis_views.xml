@@ -1,0 +1,332 @@
+<odoo>
+
+  <!-- FORM VIEW COLIS -->
+  <record id="colis_view_form" model="ir.ui.view">
+    <field name="name">colis.expedition.form</field>
+    <field name="model">colis.expedition</field>
+    <field name="arch" type="xml">
+      <form string="Colis form">
+        <header>
+          <button string="Annuler"
+            name="set_canceled_action"
+            type="object"
+            attrs="
+               {'invisible':
+                    [('state',
+                        'in',
+                      ['canceled', 'arrived']
+                    )]
+                }"
+          />
+          <button string="Réinitialisé"
+            name="set_draft_action"
+            type="object"
+            attrs="
+               {'invisible':
+                    [('state',
+                        'in',
+                      ['draft', 'canceled', 'arrived']
+                    )]
+                }"
+          />
+          <button string="Vérifier"
+            name="check_action"
+            type="object"
+            class="oe_highlight"
+            attrs="
+               {'invisible':
+                    [
+                      ('state',
+                          'in',
+                        ['checked', 'confirmed', 'sent', 'canceled', 'arrived']
+                      ),
+                    ]
+                }"
+          />
+          <button string="Créer la facture"
+            name="action_create_invoice"
+            type="object"
+            class="oe_highlight"
+            attrs="{'invisible':['|', ('invoice_count', '&gt;', 0), ('state', 'in', ('draft', 'confirmed', 'sent'))]}"
+          />
+          <button string="Confirmer"
+            name="confirm_action"
+            type="object"
+            class="oe_highlight"
+            attrs="
+               {'invisible':
+                    [('state',
+                        'in',
+                      ['draft', 'confirmed', 'sent', 'canceled', 'arrived']
+                    )]
+                }"
+          />
+          <button string="Expédier"
+            name="sent_action"
+            type="object"
+            class="oe_highlight"
+            attrs="
+               {'invisible':
+                    [('state',
+                        'in',
+                      ['draft', 'checked', 'sent', 'canceled', 'arrived']
+                    )]
+                }"
+          />
+
+          <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent"/>
+        </header>
+
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+
+            <button
+              class="oe_stat_button"
+              type="object"
+              attrs="{'invisible': [('invoice_count', '=', 0)]}"
+              name="action_view_invoice"
+              icon="fa-pencil-square-o"
+            >
+              <div class="o_field_widget o_stat_info">
+                  <span class="o_stat_text"> Factures</span>
+                  <field name="invoice_count" invisible="1"/>
+              </div>
+            </button>
+          </div>
+          <div class="oe_title">
+            <span class="o_form_label">Reférence</span>
+            <h1 class="mt0">
+                <field name="ref" placeholder="SHP/01/01/2022-0001"/>
+            </h1>
+          </div>
+
+          <group>
+            <group string="Expéditeur">
+              <field
+                name="sender_id"
+                domain="[('id', '!=', receiver_id)]"
+                attrs="
+                 {'readonly':
+                      [('state',
+                          'in',
+                        ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']
+                      )]
+                  }"
+              />
+              <field
+                name="from_place_id"
+                domain="[('id', '!=', to_place_id)]"
+                attrs="
+                 {'readonly':
+                      [('state',
+                          'in',
+                        ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']
+                      )]
+                  }"
+              />
+            </group>
+
+            <group string="Destinataire">
+              <field
+                name="receiver_id"
+                domain="[('id', '!=', sender_id)]"
+                attrs="
+                 {'readonly':
+                      [('state',
+                          'in',
+                        ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']
+                      )]
+                  }"
+              />
+              <field
+                name="to_place_id"
+                domain="[('id', '!=', from_place_id)]"
+                attrs="
+                 {'readonly':
+                      [('state',
+                          'in',
+                        ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']
+                      )]
+                  }"
+              />
+            </group>
+          </group>
+
+          <group>
+            <group string="Informations de base">
+              <field
+                name="type_id"
+                attrs="
+                 {'readonly':
+                      [('state',
+                          'in',
+                        ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']
+                      )]
+                  }"
+              />
+              <field
+                name="departure_date"
+                attrs="
+                 {'readonly':
+                      [('state',
+                          'in',
+                        ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']
+                      )]
+                  }"
+              />
+              <field
+                name="estimated_arrival_date"
+                attrs="
+                 {'readonly':
+                      [('state',
+                          'in',
+                        ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']
+                      )]
+                  }"
+              />
+              <field name="date" />
+            </group>
+
+            <group string="Poids, volume et prix">
+              <field name="weight" />
+              <field name="capacity" />
+              <field
+                name="price"
+                class="oe_inline"
+                widget='monetary'
+                options="{'currency_field': 'currency_id', 'field_digits': True}"
+                attrs="
+                 {'readonly':
+                      [('state',
+                          'in',
+                        ['confirmed', 'sent', 'arrived', 'canceled', 'ended']
+                      )]
+                  }"
+              />
+            </group>
+          </group>
+
+          <group>
+            <field
+              name="description"
+            />
+          </group>
+
+          <notebook>
+            <page string="Élément du colis">
+              <field
+                name="colis_product_ids"
+                attrs="
+                 {'readonly':
+                      [('state',
+                          'in',
+                        ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']
+                      )]
+                  }"
+              >
+                  <tree editable="bottom">
+                    <field name="product_id" domain="[('type', '!=', 'service')]"/>
+                    <field name="quantity"/>
+                    <field name="weight" />
+                    <field name="volume" />
+                  </tree>
+              </field>
+            </page>
+
+            <page string="Emplacement du colis">
+              <group>
+                <group>
+                  <field name="company_id" />
+                  <field
+                    name="company_branch_id"
+                    attrs="
+                     {'readonly':
+                          [('state',
+                              'in',
+                            ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']
+                          )]
+                      }"
+                  />
+                  <field
+                    name="from_warehouse_id"
+                    attrs="
+                     {'readonly':
+                          [('state',
+                              'in',
+                            ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']
+                          )]
+                      }"
+                  />
+                  <field name="current_warehouse_id" />
+                </group>
+                <group>
+                  <field name="to_warehouse_id" />
+                  <field name="current_location_id" domain="[('company_branch_id', '=', company_branch_id)]" />
+                  <field name="operator_id" readonly="1" />
+                  <field name="currency_id" invisible="1" />
+                </group>
+              </group>
+            </page>
+            <page string="Informations transport">
+              <group>
+                <group>
+                  <field name="driver_id" />
+                  <field name="plate_no" placeholder="LT XXX YY"/>
+                </group>
+                <group>
+                  <field name="travel_no" domain="[('company_branch_id', '=', company_branch_id)]"/>
+                </group>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+
+        <div class="oe_chatter">
+          <field name="message_follower_ids" widget="mail_followers"/>
+          <field name="activity_ids" widget="mail_activity"/>
+          <field name="message_ids" widget="mail_thread"/>
+        </div>
+      </form>
+    </field>
+  </record>
+
+  <record id="colis_view_list" model="ir.ui.view">
+      <field name="name">colis.expedition.list</field>
+      <field name="model">colis.expedition</field>
+      <field name="arch" type="xml">
+          <tree string="Colis vue liste" multi_edit="1" sample="1">
+            <field name="ref" />
+            <field name="sender_id" />
+            <field name="receiver_id" />
+            <field name="from_place_id" />
+            <field name="to_place_id" />
+            <field name="weight" />
+            <field name="price" />
+            <field name="state" />
+          </tree>
+      </field>
+  </record>
+
+
+  <record id="colis_action_window" model="ir.actions.act_window">
+    <field name="name">Expédition de colis</field>
+    <field name="res_model">colis.expedition</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Aucun colis enregistré. Commençons la création!
+        </p>
+        <p>
+            Ce menu vous permet de créer de nouveau colis.
+        </p>
+    </field>
+  </record>
+
+  <!-- Top menu item -->
+  <menuitem name="Gestion de colis" id="shipping_manager_main" sequence="2" web_icon="colis,static/description/icon.png" />
+  <menuitem id="menu_colis_all" parent="shipping_manager_main" name="Gestion des colis" sequence="1"/>
+  <menuitem id="sent_colis" parent="menu_colis_all" name="Expédition" sequence="1"
+            action="colis_action_window"/>
+  <menuitem id="menu_parameter" parent="shipping_manager_main" name="Éléments de configuration" sequence="8"/>
+
+</odoo>
