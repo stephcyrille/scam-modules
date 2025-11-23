@@ -64,6 +64,7 @@
             <group string="Parcel Information">
               <field
                 name="parcel_type_id"
+                options="{'no_open': True, 'no_create': True}"
                 readonly="state in ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']"
               />
               <field
@@ -104,10 +105,31 @@
                 readonly="state in ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']"
               >
                   <list editable="bottom" limit="20">
-                    <field name="product_id" domain="[('type', '!=', 'service'), ('sale_ok', '=', True)]" width="200"/>
+                    <field name="product_id" 
+                      domain="[('type', '!=', 'service'), ('sale_ok', '=', True), ('is_a_parcel', '=', True)]" 
+                      width="200"
+                      context="{'default_is_a_parcel': True, 'default_hide_type_field': True, 'default_sale_ok': True, 'default_type': 'consu'}"
+                    />
                     <field name="quantity" width="80"/>
                     <field name="weight" width="100"/>
                     <field name="volume" width="100"/>
+                  </list>
+              </field>
+            </page>
+            
+            <page string="Service fees">
+              <field
+                name="parcel_services_ids"
+                readonly="state in ['checked', 'confirmed', 'sent', 'arrived', 'canceled', 'ended']"
+              >
+                  <list editable="bottom" limit="20">
+                    <field name="product_id" 
+                      domain="[('sale_ok', '=', True), ('type', '=', 'service'), ('purchase_ok', '=', False)]" 
+                      width="200"
+                      context="{'default_type': 'service', 'default_sale_ok': True, 'default_hide_type_field': True, 'default_purchase_ok': False}"
+                    />
+                    <field name="product_uom_qty" width="80"/>
+                    <field name="price_unit" width="100"/>
                   </list>
               </field>
             </page>

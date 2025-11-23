@@ -69,6 +69,20 @@ class ParcelExpedition(models.Model):
         help=_('Branch where the parcel is going'),
     )
     parcel_product_ids = fields.One2many('parcel.product.line', 'parcel_id', string=_('Articles'), tracking=True)
+    parcel_services_ids = fields.One2many('parcel.service.line', 'parcel_id', string=_('Services fees'), tracking=True)
+
+
+    def default_get(self, fields):
+        res = super(ParcelExpedition, self).default_get(fields)
+        product = self.env.ref('parcel_management.product_parcel_expedition_fees')  # XML ID of your product
+        if product and 'parcel_services_ids' in fields:
+            res['parcel_services_ids'] = [(0, 0, {
+                'product_id': product.product_variant_id.id,  # Use variant ID for sale.order.line
+                'product_uom_qty': 1,
+                'price_unit': product.list_price,
+            })]
+        return res
+
 
     def _get_the_first_branch(self):
         """ Returns the first branch of the company """

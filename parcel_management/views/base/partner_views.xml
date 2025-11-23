@@ -6,8 +6,15 @@
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="priority">99</field>
       <field name="arch" type="xml">
+        <field name="street2" position="after">
+          <div name="extended_partner_address_country" class="d-flex justify-content-between">
+              <field name="country_id" placeholder="Country" class="o_address_country" options="{'no_open': True, 'no_create': True}" readonly="type == 'contact' and parent_id"/>         </div>
+        </field>
+        <xpath expr="//div[@name='partner_address_country']" position="attributes">
+            <attribute name="class">o_hidden</attribute>
+        </xpath>
         <field name="city" position="replace">
-          <field name="parcel_city_id" placeholder="City" class="o_address_city" required="1"/>
+          <field name="parcel_city_id" placeholder="City" class="o_address_city" required="1" domain="[('country_id', '=', country_id)]" />
         </field>
       </field>
     </record>

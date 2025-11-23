@@ -4,14 +4,15 @@
             <field name="name">Parcel Service charges</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_all"/>
-            <field name="list_price">1.0</field>
-            <field name="standard_price">0.0</field>
+            <field name="list_price">15.0</field>
+            <field name="standard_price">15.0</field>
             <field name="sale_ok">True</field>
             <field name="purchase_ok">False</field>
             <field name="uom_id" ref="uom.product_uom_unit"/>
             <field name="uom_po_id" ref="uom.product_uom_unit"/>
             <field name="invoice_policy">order</field>
             <field name="service_type">manual</field>
+            <field name="hide_type_field">True</field>
             <field name="active">True</field>
         </record>
     </data>

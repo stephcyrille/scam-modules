@@ -1,0 +1,47 @@
+<odoo>
+  <data>
+    <record id="form_view_parcel_product_tplt_service" model="ir.ui.view">
+      <field name="name">product.template.form.parcel</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_form_view"/>
+      <field name="priority">99</field>
+      <field name="arch" type="xml"> 
+        <xpath expr="//div[@name='options']" position="attributes">
+            <attribute name="class">o_hidden</attribute>
+        </xpath>
+        <field name="type" position="replace">
+          <field name="hide_type_field" invisible="1"/>
+          <field name="type" widget="radio" options="{'horizontal': True}" invisible="hide_type_field == True"/>
+        </field>
+      </field>
+    </record>
+
+    <record id="action_parcel_show_product"  model="ir.actions.act_window">
+      <field name="name">Service fees</field>
+      <field name="context">{"search_default_filter_to_sell":1, "sale_multi_pricelist_product_template": 1, "default_type": "service", "default_sale_ok": True, "default_hide_type_field": True, 'default_purchase_ok': False}</field>
+      <field name="domain">[('sale_ok', '=', True), ('type', '=', 'service'), ('purchase_ok', '=', False)]</field>
+      <field name="res_model">product.template</field>
+      <field name="view_mode">list,form</field>
+      <field name="views" eval="[
+          (ref('product.product_template_tree_view'), 'list'), 
+          (ref('form_view_parcel_product_tplt_service'), 'form')
+      ]"/>
+    </record>
+
+    <record id="action_parcel_show_product_parcel"  model="ir.actions.act_window">
+      <field name="name">Parcel</field>
+      <field name="context">{"search_default_filter_to_sell":0, 'default_is_a_parcel': True, "default_hide_type_field": True}</field>
+      <field name="domain">[('is_storable', '=', True), ('type', '=', 'consu'), ('is_a_parcel', '=', True)]</field>
+      <field name="res_model">product.template</field>
+      <field name="view_mode">list,form</field>
+      <field name="views" eval="[
+          (ref('product.product_template_tree_view'), 'list'), 
+          (ref('form_view_parcel_product_tplt_service'), 'form')
+      ]"/>
+    </record>
+
+    <menuitem id="parcel_menu_product" parent="parcel_menu_parameter" name="Service fees" sequence="11" action="action_parcel_show_product"/>
+    <menuitem id="parcel_menu_product_parcel" parent="parcel_menu_parameter" name="Parcel" sequence="12" action="action_parcel_show_product_parcel"/>
+
+  </data>
+</odoo>

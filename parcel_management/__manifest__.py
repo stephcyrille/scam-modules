@@ -41,7 +41,7 @@
 
         # Base views
         'views/base/partner_views.xml',
-        'views/base/product_views.xml',
+        'views/base/product_template_inherited_views.xml',
 
         # Loading records
         'data/parcel/cities.xml',
